@@ -34,6 +34,13 @@
           </el-dropdown-menu>
         </el-dropdown>
       </el-form-item>
+      <el-form-item label="文章标签">
+        <el-checkbox-group v-model="tagList">
+          <el-checkbox label="复选框 A"></el-checkbox>
+          <el-checkbox label="复选框 B"></el-checkbox>
+          <el-checkbox label="复选框 C"></el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
       <el-form-item label="文章内容">
         <mavon-editor v-model="content" />
       </el-form-item>
@@ -58,6 +65,7 @@ export default {
       typeName: '',
       title: '',
       content: '',
+      tagList: [],
     }
   },
   created() {
