@@ -2,15 +2,14 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Main from '../views/Main.vue';
 import Login from '../views/Login.vue';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 Vue.use(VueRouter);
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err);
 };
-
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
 
 const routes = [{
   path: '/login',
@@ -33,6 +32,16 @@ const routes = [{
     path: '/swiper',
     name: 'swiper',
     component: () => import('../views/Swiper.vue'),
+  },
+  {
+    path: '/publish',
+    name: 'publish',
+    component: () => import('../views/PublishArtical.vue'),
+  },
+  {
+    path: '/articalList',
+    name: 'articalList',
+    component: () => import('../views/ArticalList.vue'),
   },
   {
     path: '/imgTemplate',

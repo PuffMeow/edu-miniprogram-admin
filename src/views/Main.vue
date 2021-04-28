@@ -19,14 +19,8 @@
             <el-menu-item-group>
               <template slot="title">主页</template>
               <el-menu-item index="/swiper">轮播图</el-menu-item>
-              <el-menu-item index="/videoTemplate">视频打卡模板</el-menu-item>
-              <el-menu-item index="/videoTemplateList"
-                >视频打卡模板列表</el-menu-item
-              >
-              <el-menu-item index="/imgTemplate">图片打卡模板</el-menu-item>
-              <el-menu-item index="/imgTemplateList"
-                >图片打卡模板列表</el-menu-item
-              >
+              <el-menu-item index="/publish">文章发表</el-menu-item>
+              <el-menu-item index="/articalList">文章列表</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>

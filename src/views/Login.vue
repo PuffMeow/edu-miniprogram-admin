@@ -1,8 +1,8 @@
 <template>
   <div class="login-container">
-    <el-card class="login-card" header="邮小程打卡后台管理系统">
+    <el-card class="login-card" header="后台管理系统">
       <el-form @submit.native.prevent="login">
-        <el-form-item label="用户名">
+        <el-form-item label="账号">
           <el-input v-model="username"></el-input>
         </el-form-item>
         <el-form-item label="密码">
@@ -16,6 +16,7 @@
 
 <script>
 import { login } from '@/service/api'
+import { message } from '../utils/utils'
 export default {
   data() {
     return {
@@ -26,10 +27,7 @@ export default {
   methods: {
     async login() {
       if (!this.username || !this.password) {
-        this.$message({
-          type: 'error',
-          message: '账号或密码不能为空',
-        })
+        message('error', '账号或密码不能为空')
         return
       }
 
@@ -38,16 +36,10 @@ export default {
         console.log(res)
         localStorage.username = res.data.data.userName
         this.$router.replace('/')
-        this.$message({
-          type: 'success',
-          message: '登录成功',
-        })
+        message('success', '登录成功')
       } catch (err) {
         console.log(err)
-        this.$message({
-          type: 'error',
-          message: '好像出了点问题？？？',
-        })
+        message('error', '好像网络出了点问题？？？')
       }
     },
   },

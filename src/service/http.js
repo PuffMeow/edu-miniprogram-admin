@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import router from '../router';
-import message from '../utils/message';
+import { message } from '../utils/utils';
 
 
 // http://zhtc.natapp1.cc

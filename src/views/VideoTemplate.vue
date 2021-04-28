@@ -34,7 +34,7 @@ import {
   deleteTemplate,
   updateTemplate,
 } from '@/service/api'
-import message from '../utils/message'
+import { message } from '../utils/utils'
 export default {
   props: {
     id: { type: String },

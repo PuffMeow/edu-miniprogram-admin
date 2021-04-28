@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1 style="margin-bottom: 2rem; font-size: 1.5rem">
-      图片打卡模板{{ id ? '更新' : '上传' }}
+      文章{{ id ? '更新' : '发表' }}
     </h1>
     <el-form ref="form" label-width="80px">
-      <el-form-item label="模板上传">
+      <el-form-item label="文章封面">
         <el-upload
           class="avatar-uploader"
           :action="$axios.defaults.baseURL + '/file/upload'"
@@ -15,12 +15,29 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
-      <el-form-item label="模板标题">
-        <el-input v-model="title" />
+      <el-form-item label="文章标题">
+        <el-input
+          type="text"
+          show-word-limit
+          v-model="title"
+          placeholder="请输入文章的标题"
+          maxlength="30"
+        />
       </el-form-item>
-      <el-form-item label="模板分类">
-        <el-input v-model="typeName" />
+      <el-form-item label="一级分类">
+        <el-dropdown :hide-on-click="false" split-button>
+          <span class="el-dropdown-link">分类列表</span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>前端</el-dropdown-item>
+            <el-dropdown-item>后端</el-dropdown-item>
+            <el-dropdown-item>计算机科普</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </el-form-item>
+      <el-form-item label="文章内容">
+        <mavon-editor v-model="content" />
+      </el-form-item>
+
       <el-form-item>
         <el-button type="success" @click="onSubmit">保存</el-button>
       </el-form-item>
@@ -28,12 +45,7 @@
   </div>
 </template>
 <script>
-import {
-  videoTemplateList,
-  addPhotoTemplate,
-  deleteTemplate,
-  updateTemplate,
-} from '@/service/api'
+import {} from '@/service/api'
 import { message } from '../utils/utils'
 export default {
   props: {
@@ -45,6 +57,7 @@ export default {
       photoUrl: '',
       typeName: '',
       title: '',
+      content: '',
     }
   },
   created() {

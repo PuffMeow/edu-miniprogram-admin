@@ -21,7 +21,7 @@
 </template>
 <script>
 import { getSwiper, uploadSwiper, deleteSwiper } from '@/service/api'
-import message from '../utils/message'
+import { message } from '../utils/utils'
 export default {
   data() {
     return {
