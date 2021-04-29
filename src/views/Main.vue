@@ -13,14 +13,24 @@
         >
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-message"></i>
-              管理系统
+              <i class="el-icon-s-home"></i>
+              主页管理
             </template>
             <el-menu-item-group>
               <template slot="title">主页</template>
               <el-menu-item index="/swiper">轮播图</el-menu-item>
               <el-menu-item index="/publish">文章发表</el-menu-item>
               <el-menu-item index="/articalList">文章列表</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title">
+              <i class="el-icon-folder-opened"></i>
+              分类管理
+            </template>
+            <el-menu-item-group>
+              <template slot="title">分类</template>
+              <el-menu-item index="/classManage">一级分类</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>

@@ -18,35 +18,21 @@ export function uploadFile(file) {
   return request.post(`/file/upload`, { file })
 }
 
-//上传视频打卡模板
-/**
- * @param {在上传图片时返回的图片 ID} imageId 
- * @param {模板标题} title 
- * @param {模板分类} typeName 
- */
-export function addVideoTemplate(imageId, title, typeName) {
-  return request.post(`/admin/template/addVideoTemplate`, {
-    imageId,
-    title,
-    typeName
-  })
-}
-
 //上传轮播图
 //先调用上传图片接口获取文件 ID
 export function uploadSwiper(fileIds) {
-  return request.post(`/admin/user/uploadCarousel`, { fileIds })
+  return request.post(`/admin/uploadCarousel`, { fileIds })
 }
 
 //删除轮播图
 //carouselId-轮播图 ID
 export function deleteSwiper(carouselId) {
-  return request.delete(`/admin/user/deleteCarousel/${carouselId}`)
+  return request.delete(`/admin/deleteCarousel/${carouselId}`)
 }
 
 //获取轮播图
 export function getSwiper() {
-  return request.get(`/admin/user/listAllCarousels`)
+  return request.get(`/admin/listAllCarousels`)
 }
 
 //上传图片打卡模板

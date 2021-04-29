@@ -25,12 +25,16 @@
         />
       </el-form-item>
       <el-form-item label="一级分类">
-        <el-dropdown :hide-on-click="false" split-button>
+        <el-dropdown
+          :hide-on-click="false"
+          split-button
+          @command="handleCommand"
+        >
           <span class="el-dropdown-link">分类列表</span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>前端</el-dropdown-item>
-            <el-dropdown-item>后端</el-dropdown-item>
-            <el-dropdown-item>计算机科普</el-dropdown-item>
+            <el-dropdown-item command="1">前端</el-dropdown-item>
+            <el-dropdown-item command="2">后端</el-dropdown-item>
+            <el-dropdown-item command="3">计算机科普</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-form-item>
@@ -46,6 +50,7 @@
           v-model="content"
           :codeStyle="codeStyle"
           :toolbars="markdownOption"
+          @imgAdd="uploadMdImg"
         />
       </el-form-item>
 
@@ -56,7 +61,7 @@
   </div>
 </template>
 <script>
-import {} from '@/service/api'
+import { uploadFile } from '@/service/api'
 import { message } from '../utils/utils'
 export default {
   props: {
@@ -116,7 +121,7 @@ export default {
   },
   methods: {
     async onSubmit() {
-      if (!this.imageId || !this.typeName || !this.title) {
+      if (!this.content || !this.typeName || !this.title) {
         message('warning', '请先将数据完善再保存')
         return
       }
@@ -146,6 +151,14 @@ export default {
       this.photoUrl = ''
       this.typeName = ''
       this.title = ''
+    },
+
+    handleCommand(command) {
+      console.log(command)
+    },
+
+    uploadMdImg(pos, mdFile) {
+      console.log(pos, mdFile)
     },
 
     handleSuccess(res, file, fileList) {

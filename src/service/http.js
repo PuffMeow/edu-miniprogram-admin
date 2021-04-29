@@ -1,11 +1,8 @@
 import axios from 'axios';
 
 import router from '../router';
+import { BASE_URL } from './config'
 import { message } from '../utils/utils';
-
-
-// http://zhtc.natapp1.cc
-const BASE_URL = process.env.NODE_ENV === 'product' ? '' : ''
 
 const request = axios.create({
   baseURL: BASE_URL,

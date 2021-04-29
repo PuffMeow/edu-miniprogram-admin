@@ -1,7 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Main from '../views/Main.vue';
-import Login from '../views/Login.vue';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 Vue.use(VueRouter);
@@ -14,7 +12,7 @@ VueRouter.prototype.push = function push(location) {
 const routes = [{
   path: '/login',
   name: 'login',
-  component: Login,
+  component: () => import('../views/Login.vue'),
   meta: {
     isPublic: true,
   },
@@ -22,7 +20,7 @@ const routes = [{
 {
   path: '/',
   name: 'main',
-  component: Main,
+  component: () => import('../views/Main.vue'),
   children: [{
     path: '/',
     name: 'welcom',
@@ -44,36 +42,9 @@ const routes = [{
     component: () => import('../views/ArticalList.vue'),
   },
   {
-    path: '/imgTemplate',
-    name: 'imgTemplate',
-    component: () => import('../views/ImgTemplate.vue'),
-  },
-  {
-    path: '/imgTemplate/:id',
-    name: 'imgTemplate',
-    component: () => import('../views/ImgTemplate.vue'),
-    props: true
-  },
-  {
-    path: '/imgTemplateList',
-    name: 'imgTemplateList',
-    component: () => import('../views/ImgTemplateList.vue'),
-  },
-  {
-    path: '/videoTemplate',
-    name: 'videoTemplate',
-    component: () => import('../views/VideoTemplate.vue'),
-  },
-  {
-    path: '/videoTemplate/:id',
-    name: 'videoTemplate',
-    component: () => import('../views/VideoTemplate.vue'),
-    props: true
-  },
-  {
-    path: '/videoTemplateList',
-    name: 'videoTemplateList',
-    component: () => import('../views/VideoTemplateList.vue'),
+    path: '/classManage',
+    name: 'classManage',
+    component: () => import('../views/ClassManage.vue')
   }],
 },
 ];
