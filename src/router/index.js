@@ -45,6 +45,17 @@ const routes = [{
     path: '/classManage',
     name: 'classManage',
     component: () => import('../views/ClassManage.vue')
+  },
+  {
+    path: '/ClassManage?id',
+    name: 'classManage',
+    component: () => import('../views/ClassManage.vue'),
+    props: true
+  },
+  {
+    path: '/ClassList',
+    name: 'classList',
+    component: () => import('../views/ClassList.vue'),
   }],
 },
 ];

@@ -18,21 +18,26 @@ export function uploadFile(file) {
   return request.post(`/file/upload`, { file })
 }
 
-//上传轮播图
-//先调用上传图片接口获取文件 ID
-export function uploadSwiper(fileIds) {
-  return request.post(`/admin/uploadCarousel`, { fileIds })
+/**
+ * 上传轮播图
+ * 先调用上传图片接口获取文件 ID
+ * @param  swiperOptions 轮播图选项
+ */
+export function uploadSwiper(carouselReqs) {
+  return request.post(`/admin/carousel/uploadCarousel`, {
+    carouselReqs
+  })
 }
 
 //删除轮播图
 //carouselId-轮播图 ID
 export function deleteSwiper(carouselId) {
-  return request.delete(`/admin/deleteCarousel/${carouselId}`)
+  return request.delete(`/admin/carousel/deleteCarousel/${carouselId}`)
 }
 
 //获取轮播图
-export function getSwiper() {
-  return request.get(`/admin/listAllCarousels`)
+export function getAllSwiper() {
+  return request.get(`/admin/carousel/listAllCarousels`)
 }
 
 //上传图片打卡模板

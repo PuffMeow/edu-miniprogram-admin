@@ -4,6 +4,7 @@ import router from "./router";
 import "./plugins/element.js";
 import store from './store'
 import http from './service/http'
+import './index.css'
 
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'

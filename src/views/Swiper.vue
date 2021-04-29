@@ -11,14 +11,14 @@
           class="avatar-uploader"
           :action="$axios.defaults.baseURL + '/file/upload'"
           :show-file-list="false"
-          :on-success="handleSuccess"
+          :on-success="(response, file) => handleSuccess(response, file, index)"
         >
           <img v-if="option.imgUrl" :src="option.imgUrl" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
         <el-input
           placeholder="点击轮播图跳转的路径，若不需跳转，则不需要填写此项"
-          v-model="option.routeUrl"
+          v-model="option.routingAddress"
         ></el-input>
         <el-button
           style="margin-top: 12px"
@@ -29,7 +29,7 @@
         >
       </el-form-item>
       <el-form-item>
-        <el-button @click="handleAddSwiper">继续添加轮播图</el-button>
+        <el-button @click="handleAddSwiper">添加轮播图</el-button>
       </el-form-item>
       <el-form-item>
         <el-button type="success" @click="onSubmit">保存</el-button>
@@ -38,83 +38,87 @@
   </div>
 </template>
 <script>
-import { getSwiper, uploadSwiper, deleteSwiper } from '@/service/api'
+import { uploadSwiper, getAllSwiper, deleteSwiper } from '@/service/api'
 import { message } from '../utils/utils'
 export default {
   data() {
     return {
-      photoIds: [],
-      swiperOptions: [
-        {
-          imgUrl: '',
-          routeUrl: '',
-          key: Date.now(),
-        },
-      ],
+      swiperOptions: [],
     }
   },
   async mounted() {
-    const res = await getSwiper()
+    const res = await getAllSwiper()
+    const data = res.data.data
+    const swiperOptions = []
+    data.forEach((item) => {
+      swiperOptions.push({
+        imgUrl: item.carouselUrl,
+        carouselId: item.carouselId,
+        fileId: item.fileId,
+        routingAddress: item.routingAddress,
+        key: item.carouselId,
+      })
+    })
+    this.swiperOptions = swiperOptions
   },
   methods: {
     async onSubmit() {
-      const res = await uploadSwiper(this.photoIds)
-      console.log(res)
-      message('success', '保存成功')
+      console.log(this.swiperOptions)
+      const carouselReqs = []
+      this.swiperOptions.forEach((item) => {
+        carouselReqs.push({
+          fileId: item.fileId,
+          routingAddress: item.routingAddress,
+        })
+      })
+      const res = await uploadSwiper(carouselReqs)
+      if (res.data.code === 200) {
+        message('success', '上传轮播图成功')
+      }
     },
 
-    async handleRemove(file) {
-      console.log(file)
-      const res = await deleteSwiper(file.id)
-      console.log(res)
-    },
-
-    handleSuccess(response, file) {
-      console.log(response)
-      console.log(file)
+    handleSuccess(response, file, idx) {
+      if (response.code === 200) {
+        const data = response.data
+        this.swiperOptions[idx].imgUrl = data.fileLink
+        this.swiperOptions[idx].fileId = data.fileId
+        message('success', '图片上传成功')
+      }
     },
 
     handleAddSwiper() {
       this.swiperOptions.push({
         imgUrl: '',
-        routeUrl: '',
+        routingAddress: '',
         key: Date.now(),
       })
     },
 
-    handleRemoveOption(idx) {
+    async handleRemoveOption(idx) {
       if (this.swiperOptions.length === 1) {
         message('warning', '至少要有一张轮播图')
         return
       }
       this.swiperOptions.splice(idx, 1)
+      const carouselId = this.swiperOptions[idx].carouselId
+      const res = await deleteSwiper(carouselId)
+      if (res.data.code === 200) {
+        message('success', '删除成功')
+      }
     },
   },
 }
 </script>
 
-<style>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
+<style scoped>
 .avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 110px;
-  height: 110px;
-  line-height: 110px;
-  text-align: center;
+  width: 200px;
+  height: 120px;
+  line-height: 120px;
 }
 .avatar {
-  width: 110px;
-  height: 110px;
+  width: 200px;
+  height: 120px;
   display: block;
 }
 </style>
