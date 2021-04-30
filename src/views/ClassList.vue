@@ -17,7 +17,7 @@
             size="mini"
             type="primary"
             @click="handleEdit(scope.$index, scope.row)"
-            >更新</el-button
+            >编辑</el-button
           >
           <el-button
             size="mini"
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import {} from '@/service/api'
+import { getClassification } from '@/service/api'
 
 export default {
   data() {
@@ -46,23 +46,11 @@ export default {
   },
   methods: {
     async fetch() {
-      const res = await videoTemplateList()
-      let list = res.data.data.videoTemplates
-      list.forEach((item, i) => {
-        item.createTime = item.createTime.replace('T', ' ')
-      })
-      this.total = res.data.data.total
-      this.tableData = list
+      const res = await getClassification()
+      console.log(res)
     },
-    handleEdit(index, row) {
-      console.log(index, row)
-      this.$router.push({
-        path: `/videoTemplate/${row.videoTemplateId}`,
-        query: {
-          row,
-        },
-      })
-    },
+
+    handleEdit(index, row) {},
     async handleDelete(index, { videoTemplateId }) {
       console.log(index, videoTemplateId)
       try {
@@ -71,7 +59,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning',
         })
-        const res = await deleteTemplate(videoTemplateId, 1)
+
         this.$message({
           type: 'success',
           message: '删除成功!',

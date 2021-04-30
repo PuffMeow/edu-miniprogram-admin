@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { videoTemplateList, deleteTemplate } from '@/service/api'
+import {} from '@/service/api'
 import { message } from '../utils/utils'
 export default {
   data() {

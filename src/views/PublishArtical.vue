@@ -19,9 +19,9 @@
         <el-input
           type="text"
           show-word-limit
+          maxlength="30"
           v-model="title"
           placeholder="请输入文章的标题"
-          maxlength="30"
         />
       </el-form-item>
       <el-form-item label="一级分类">

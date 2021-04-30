@@ -63,11 +63,11 @@ export default {
   },
   methods: {
     async onSubmit() {
-      console.log(this.swiperOptions)
       const carouselReqs = []
       this.swiperOptions.forEach((item) => {
         carouselReqs.push({
           fileId: item.fileId,
+          carouselId: item.carouselId,
           routingAddress: item.routingAddress,
         })
       })
@@ -87,6 +87,10 @@ export default {
     },
 
     handleAddSwiper() {
+      if (this.swiperOptions.length > 6) {
+        message('warning', '最多只能上传六张轮播图')
+        return
+      }
       this.swiperOptions.push({
         imgUrl: '',
         routingAddress: '',
@@ -99,11 +103,17 @@ export default {
         message('warning', '至少要有一张轮播图')
         return
       }
-      this.swiperOptions.splice(idx, 1)
       const carouselId = this.swiperOptions[idx].carouselId
-      const res = await deleteSwiper(carouselId)
-      if (res.data.code === 200) {
-        message('success', '删除成功')
+      this.swiperOptions.splice(idx, 1)
+      try {
+        const res = await deleteSwiper(carouselId)
+        if (res.data.code === 200) {
+          message('success', '删除成功')
+        } else {
+          message('error', '删除失败')
+        }
+      } catch (e) {
+        console.log(e)
       }
     },
   },
